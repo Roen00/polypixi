@@ -1,28 +1,65 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+import {AppConsumer, Mesh, Stage} from '@inlet/react-pixi'
+import * as PIXI from 'pixi.js'
+
+// const { Stage, Mesh, AppConsumer } = ReactPixi
+
+const image = 'https://i.imgur.com/xjRzJAD.png'
+const w = 500
+const h = 300
+const texture = new PIXI.Texture.from(image)
+texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
+
+class MeshExample extends React.Component {
+
+    count = 0
+
+    state = {
+        indices: new Uint16Array([
+            0, 1, 2
+        ]),
+        uvs: new Float32Array([
+            0, 0, 0, 2, 1, 0
+        ]),
+        vertices: new Float32Array([
+            0, 0, 0, h, w, 0
+        ])
+    }
+
+
+    componentDidMount() {
+        this.props.app.ticker.add(this.tick)
+    }
+
+    componentWillUnmount() {
+        this.props.app.ticker.remove(this.tick)
+    }
+
+    tick = delta => {
+
+    }
+
+    render() {
+        const {vertices, uvs, indices} = this.state
+
+        return (
+            <Mesh texture={texture}
+                  uvs={uvs}
+                  vertices={vertices}
+                  indices={indices}
+                  drawMode={PIXI.mesh.Mesh.DRAW_MODES.TRIANGLES}/>
+        )
+    }
 }
 
-export default App;
+const App = () => (
+    <Stage width={w} height={h} options={{backgroundColor: 0xeef1f5}}>
+        <AppConsumer>
+            {app => <MeshExample app={app}/>}
+        </AppConsumer>
+    </Stage>
+)
+
+export default App
