@@ -6,7 +6,7 @@ export default PixiComponent('Triangle', {
         let g = new PIXI.Graphics();
         const {vertices: v} = props
         g.clear()
-        g.lineStyle(1, 0xFFFFFF, 1);
+        g.lineStyle(1 / props.scale, 0xFFFFFF, 1);
         g.moveTo(v[0], v[1])
         g.lineTo(v[2], v[3])
         g.lineTo(v[4], v[5])
@@ -21,9 +21,9 @@ export default PixiComponent('Triangle', {
         // clean up before removal
     },
     applyProps: (g, oldProps, props) => {
-        const {vertices: v} = props
+        const {vertices: v, scale} = props
         g.clear()
-        g.lineStyle(1, 0xFFFFFF, 1);
+        g.lineStyle(1 / scale, 0xFFFFFF, 1);
         g.moveTo(v[0], v[1])
         g.lineTo(v[2], v[3])
         g.lineTo(v[4], v[5])

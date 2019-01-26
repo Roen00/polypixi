@@ -9,6 +9,7 @@ const MapViewport = PixiComponent('MapViewport', {
             ...props
         })
         viewport.drag().pinch().wheel().decelerate();
+        viewport.on('zoomed', props.onZoomed)
         return viewport
     }
 })
