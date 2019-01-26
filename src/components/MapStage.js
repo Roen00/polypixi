@@ -22,7 +22,7 @@ export const MapStage = ({w, h}) => {
     }
 
     return (
-        <Stage width={w} height={h} options={{backgroundColor: 0xeef1f5}}>
+        <Stage width={w} height={h} options={{backgroundColor: 0x000000}}>
             <MapViewportWithApp
                 screenWidth={w}
                 screenHeight={h}
