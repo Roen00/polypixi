@@ -1,10 +1,16 @@
 import * as Viewport from 'pixi-viewport'
-import {PixiComponent} from "@inlet/react-pixi";
+import {PixiComponent, withPixiApp} from "@inlet/react-pixi";
 
-export const MapViewport = PixiComponent('MapViewport', {
+
+const MapViewport = PixiComponent('MapViewport', {
     create: (props) => {
-        let viewport = new Viewport(props);
+        let viewport = new Viewport({
+            interaction: props.app.renderer.plugins.interaction,
+            ...props
+        })
         viewport.drag().pinch().wheel().decelerate();
         return viewport
     }
 })
+
+export const MapViewportWithApp = withPixiApp(MapViewport)

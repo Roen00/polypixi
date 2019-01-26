@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 import {Stage} from '@inlet/react-pixi'
-import {MapViewport} from './components/MapViewport'
+import {MapViewportWithApp} from './components/MapViewport'
 import {PolygonTexture} from './components/PolygonTexture'
 import {Polygon} from "./components/Polygon";
 
@@ -26,14 +26,14 @@ const App = () => {
     }
     return (
         <Stage width={w} height={h} options={{backgroundColor: 0xeef1f5}}>
-            <MapViewport
+            <MapViewportWithApp
                 screenWidth={w}
                 screenHeight={h}
                 worldWidth={w * 2}
                 worldHeight={h * 2}>
                 <Polygon {...props}/>
                 <Polygon {...props2}/>
-            </MapViewport>
+            </MapViewportWithApp>
         </Stage>
     )
 }
