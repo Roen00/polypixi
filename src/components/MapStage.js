@@ -15,13 +15,7 @@ export class MapStage extends React.Component {
         }
     }
 
-    onZoomed = (a) => {
-        this.setState((prevState) => {
-            let newVar = ({...prevState, scale: a.viewport.scale.x});
-            console.log(newVar)
-            return newVar
-        })
-    };
+    updateScaleOnZoom = (zoomEvent) => this.setState((prevState) => ({...prevState, scale: zoomEvent.viewport.scale.x}));
 
     render() {
         const image = 'https://i.imgur.com/xjRzJAD.png'
@@ -47,7 +41,7 @@ export class MapStage extends React.Component {
                     screenHeight={this.state.h}
                     worldWidth={this.state.w * 2}
                     worldHeight={this.state.h * 2}
-                    onZoomed={this.onZoomed}>
+                    onZoomed={this.updateScaleOnZoom}>
                     <Polygon {...props}/>
                     <Polygon {...props2}/>
                 </MapViewportWithApp>

@@ -1,5 +1,4 @@
 import {Container, Mesh} from "@inlet/react-pixi";
-import * as PIXI from "pixi.js";
 import Triangle from "./Triangle";
 import React from "react";
 
@@ -9,6 +8,10 @@ export const Polygon = ({vertices, uvs, indices, texture, scale}) =>
               uvs={uvs}
               vertices={vertices}
               indices={indices}
-              drawMode={PIXI.mesh.Mesh.DRAW_MODES.LINES}/>
-        <Triangle scale={scale} vertices={vertices}/>
+        />
+        <Triangle
+            scale={scale}
+            vertices={vertices}
+            thickness={5}
+        />
     </Container>
