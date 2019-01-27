@@ -22,15 +22,9 @@ export class MapStage extends React.Component {
         const texture = PolygonTexture({image: image});
         const props = {
             indices: new Uint16Array([0, 1, 2]),
-            uvs: new Float32Array([0, 0, 0, 2, 1, 0]),
-            vertices: new Float32Array([0, 0, 0, this.state.h, this.state.w, 0]),
-            texture: texture,
-            scale: this.state.scale
-        }
-        const props2 = {
-            indices: new Uint16Array([0, 1, 2]),
-            uvs: new Float32Array([0, 0, 0, 2, 1, 0]),
-            vertices: new Float32Array([this.state.w, this.state.h, this.state.w, 0, 0, 0]),
+            uvs: new Float32Array([-2.21875, 1.649999976158142, 2.1312499046325684, 1.6416666507720947, -0.199085995554924,
+                3.2156503200531006]),
+            vertices: new Float32Array([-322.50537109375, 381.84112548828125, 339.49462890625, 380.84112548828125, 0.640869140625, 569.7191772460938]),
             texture: texture,
             scale: this.state.scale
         }
@@ -43,7 +37,6 @@ export class MapStage extends React.Component {
                     worldHeight={this.state.h * 2}
                     onZoomed={this.updateScaleOnZoom}>
                     <Polygon {...props}/>
-                    <Polygon {...props2}/>
                 </MapViewportWithApp>
             </Stage>
         )
