@@ -5,11 +5,11 @@ import './grid.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar,Nav,NavDropdown,Form,FormControl,Button, Collapse } from 'react-bootstrap';
 
-class App extends React.Component { 
+class App extends React.Component {
 	state = {width:0};
 	state = {height:0};
 	state = {open : false}
-	
+
 	componentDidMount() {
 		var mapHandler = document.getElementById("map_handler");
 		var mapHandlerHeight = mapHandler.offsetHeight;
@@ -20,7 +20,7 @@ class App extends React.Component {
 
 	}
 
-	
+
     render(){
     	return <div className='container-fluid container_css'>
     	<div className="row">
@@ -93,7 +93,7 @@ class App extends React.Component {
 						</Nav>
 			        </div>
 			        </Collapse>
-    				
+
     			</div>
     		</div>
     		<div className="col-sm bg-secondary container_map" id='map_handler'>
