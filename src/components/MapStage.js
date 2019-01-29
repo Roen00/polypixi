@@ -4,6 +4,8 @@ import {MapViewportWithApp} from "./MapViewport";
 import {Polygon} from "./Polygon";
 import React from "react";
 
+import * as _ from 'underscore';
+import {Wireframe} from "./Wireframe";
 
 export class MapStage extends React.Component {
     constructor(props) {
@@ -15,19 +17,40 @@ export class MapStage extends React.Component {
         }
     }
 
+    componentDidMount() {
+        console.log("mounted")
+        fetch("http://localhost:8080/maps")
+            .then(res => res.json())
+            .then(
+                (polygons) => {
+                    let newPolygons = polygons.map(
+                        polygon => (
+                            {
+                                vertices: new Float32Array(_.flatten(polygon.vertices.map(vertex => [vertex.x, vertex.y]))),
+                                uvs: new Float32Array(_.flatten(polygon.vertices.map(vertex => [vertex.tu, vertex.tv])))
+                            }
+                        )
+                    ).slice(2)
+                    console.log(newPolygons)
+                    this.setState((oldState) => ({
+                        ...oldState,
+                        polygons: newPolygons
+                    }));
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+    }
+
     updateScaleOnZoom = (zoomEvent) => this.setState((prevState) => ({...prevState, scale: zoomEvent.viewport.scale.x}));
 
     render() {
         const image = 'https://i.imgur.com/xjRzJAD.png'
         const texture = PolygonTexture({image: image});
-        const props = {
-            indices: new Uint16Array([0, 1, 2]),
-            uvs: new Float32Array([-2.21875, 1.649999976158142, 2.1312499046325684, 1.6416666507720947, -0.199085995554924,
-                3.2156503200531006]),
-            vertices: new Float32Array([-322.50537109375, 381.84112548828125, 339.49462890625, 380.84112548828125, 0.640869140625, 569.7191772460938]),
-            texture: texture,
-            scale: this.state.scale
-        }
         return (
             <Stage width={this.state.w} height={this.state.h} options={{backgroundColor: 0x000000}}>
                 <MapViewportWithApp
@@ -36,7 +59,20 @@ export class MapStage extends React.Component {
                     worldWidth={this.state.w * 2}
                     worldHeight={this.state.h * 2}
                     onZoomed={this.updateScaleOnZoom}>
-                    <Polygon {...props}/>
+                    {this.state.polygons && this.state.polygons.map(polygon =>
+                        <Polygon
+                            indices={new Uint16Array([0, 1, 2])}
+                            uvs={polygon.uvs}
+                            vertices={polygon.vertices}
+                            texture={texture}
+                        />)
+                    }
+                    {this.state.polygons && this.state.polygons.map(polygon =>
+                        <Wireframe
+                            vertices={polygon.vertices}
+                            scale={this.state.scale}
+                        />)
+                    }
                 </MapViewportWithApp>
             </Stage>
         )
