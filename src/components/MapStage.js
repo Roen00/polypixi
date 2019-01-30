@@ -12,8 +12,6 @@ export class MapStage extends React.Component {
         super(props);
         this.state = {
             scale: 1,
-            w: props.w,
-            h: props.h
         }
     }
 
@@ -31,7 +29,6 @@ export class MapStage extends React.Component {
                             }
                         )
                     ).slice(2)
-                    console.log(newPolygons)
                     this.setState((oldState) => ({
                         ...oldState,
                         polygons: newPolygons
@@ -60,15 +57,15 @@ export class MapStage extends React.Component {
             <Polygon
                 uvs={polygon.uvs}
                 vertices={polygon.vertices}
-                w texture={texture}
+                texture={texture}
             />)
         return (
-            <Stage width={this.state.w} height={this.state.h} options={{backgroundColor: 0x000000}}>
+            <Stage width={this.props.w} height={this.props.h} options={{backgroundColor: 0x000000}}>
                 <MapViewportWithApp
-                    screenWidth={this.state.w}
-                    screenHeight={this.state.h}
-                    worldWidth={this.state.w * 2}
-                    worldHeight={this.state.h * 2}
+                    screenWidth={this.props.w}
+                    screenHeight={this.props.h}
+                    worldWidth={this.props.w * 2}
+                    worldHeight={this.props.h * 2}
                     onZoomed={this.updateScaleOnZoom}>
                     {polygons}
                     {wireframes}
