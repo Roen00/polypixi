@@ -1,13 +1,14 @@
 html,
 body {
-  height: 100vh;
+  height: 100%;
+  /*width:100%;*/
   background: #000000;
   overflow: hidden;
 }
 
 body {
   margin: 0;
-  display: flex;
+  /*display: flex;*/
   align-items: center;
   justify-content: center;
 }
