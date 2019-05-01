@@ -10,7 +10,7 @@ export default PixiComponent('Triangle', {
         const {vertices: v, thickness} = props
         const thicknessWithDefault = thickness || 1;
         g.clear()
-        g.lineStyle((thicknessWithDefault) / props.scale, 0xFFFFFF, 1);
+        g.lineStyle((thicknessWithDefault) / props.scale, 0xFFFFFF, 0.2);
         g.moveTo(v[0], v[1])
         g.lineTo(v[2], v[3])
         g.lineTo(v[4], v[5])

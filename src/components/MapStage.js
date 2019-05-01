@@ -22,13 +22,18 @@ export class MapStage extends React.Component {
             .then(
                 (polygons) => {
                     let newPolygons = polygons.map(
-                        polygon => (
-                            {
-                                vertices: new Float32Array(_.flatten(polygon.vertices.map(vertex => [vertex.x, vertex.y]))),
-                                uvs: new Float32Array(_.flatten(polygon.vertices.map(vertex => [vertex.tu, vertex.tv])))
-                            }
-                        )
-                    ).slice(2)
+                        polygon => {
+                            console.log(polygon.vertices)
+                            const vertices = polygon.vertices.filter(vertex => vertex.color.alpha === 255)
+                            return ({
+                                vertices: new Float32Array(_.flatten(vertices.map(vertex => [vertex.x, vertex.y]))),
+                                uvs: new Float32Array(_.flatten(vertices.map(vertex => [vertex.tu, vertex.tv]))),
+                                verticesColors: new Float32Array(_.flatten(vertices.map(vertex => [
+                                    vertex.color.blue/255, vertex.color.green/255, vertex.color.red/255
+                                ])))
+                            })
+                        }
+                    )
                     this.setState((oldState) => ({
                         ...oldState,
                         polygons: newPolygons
@@ -57,6 +62,7 @@ export class MapStage extends React.Component {
             <Polygon
                 uvs={polygon.uvs}
                 vertices={polygon.vertices}
+                verticesColors={polygon.verticesColors}
                 texture={texture}
             />)
         return (

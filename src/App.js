@@ -4,7 +4,7 @@ import {MapStage} from "./components/MapStage";
 import './grid.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Collapse, Form, FormControl, Nav, Navbar, NavDropdown} from 'react-bootstrap';
-
+import 'pixi-heaven';
 
 class App extends React.Component {
     constructor(props) {
@@ -44,7 +44,7 @@ class App extends React.Component {
             <div className="row">
                 <div className="col">
                     <Navbar bg="dark" className="navbar-dark bg-dark" expand="lg">
-                        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                        <Navbar.Brand href="#home">Soldat Polypixi map editor</Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="mr-auto">
