@@ -17,7 +17,7 @@ export class MapStage extends React.Component {
 
     componentDidMount() {
         console.log("mounted")
-        fetch("http://localhost:8080/maps")
+        fetch("http://127.0.0.1:8080/maps")
             .then(res => res.json())
             .then(
                 (polygons) => {
